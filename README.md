@@ -1,6 +1,6 @@
-## Esta api foi desenvolvida seguinto os passos do curso ignite da Rocketseat
+# Esta api foi desenvolvida seguinto os passos do curso ignite da Rocketseat
 
-# Nesta api será possivel executar os requisitos abaixo
+## Nesta api será possivel executar os requisitos abaixo
 
 FinApi - Financeia
 Requisitos
