@@ -1,6 +1,7 @@
-## Esta api foi desenvolvida seguinto os passos do curso ignite da Rocketseat
+# Esta api foi desenvolvida seguinto os passos do curso ignite da Rocketseat
 
-# Nesta api será possivel executar os requisitos abaixo
+## Nesta api será possivel executar os requisitos abaixo
+
 
 FinApi - Financeia
 Requisitos
@@ -20,3 +21,4 @@ Regras de negócio
 [] Não deve ser possível fazer saque em uma conta não existente
 [] Não deve ser possível excluir uma conta não existente
 [] Não deve ser possível fazer saque quando o saldo for insuficiente
+
