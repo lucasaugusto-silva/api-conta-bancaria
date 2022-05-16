@@ -1,5 +1,4 @@
 const express = require("express");
-const express = require("express");
 const { v4: uuid } = require("uuid");
 
 const app = express();
@@ -21,6 +20,17 @@ function verifyIfExistsAccountCPF(req, res, next) {
   req.customer = customer;
 
   return next();
+}
+
+function getBalance(statement) {
+  const balance = statement.reduce((acc, operation) => {
+    if (operation.type === "credit") {
+      return acc + operation.amount;
+    } else {
+      return acc - operation.amount;
+    }
+  }, 0);
+  return balance;
 }
 
 app.post("/account", (req, res) => {
@@ -56,7 +66,7 @@ app.post("/deposit", verifyIfExistsAccountCPF, (req, res) => {
     description,
     amount,
     created_at: new Date(),
-    type: "credit ",
+    type: "credit",
   };
 
   customer.statement.push(statementOperation);
@@ -64,6 +74,23 @@ app.post("/deposit", verifyIfExistsAccountCPF, (req, res) => {
   return res.status(201).send();
 });
 
+app.post("/withdraw", verifyIfExistsAccountCPF, (req, res) => {
+  const { amount } = req.body;
+  const { customer } = req;
+  const balance = getBalance(customer.statement);
+
+  if (balance < amount) {
+    return res.status(400).json({ error: "Insufficient funds!" });
+  }
+  const statementOperation = {
+    amount,
+    created_at: new Date(),
+    type: "debit",
+  };
+  customer.statement.push(statementOperation);
+  return res.status(201).send();
+});
+
 app.listen(PORT, () => {
-  console.log(`Server is running in localhost://${PORT}`);
+  console.log(`Server is running in localhost:${PORT}`);
 });
